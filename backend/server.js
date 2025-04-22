@@ -13,13 +13,16 @@ dotenv.config();
 const app = express();
 
 // Security middleware
-app.use(helmet()); // Set security HTTP headers
-app.use(xss()); // Prevent XSS attacks
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+    crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" }
+}));
+app.use(xss());
 
 // Global rate limiting
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100 // limit each IP to 100 requests per windowMs
+    windowMs: 15 * 60 * 1000,
+    max: 100
 });
 app.use(limiter);
 
@@ -41,17 +44,25 @@ app.use(cors({
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    exposedHeaders: ['set-cookie']
 }));
 
-// Body parsing middleware
-app.use(express.json({ limit: '10kb' })); // Body limit is 10kb
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+// Enable pre-flight requests for all routes
+app.options('*', cors());
+
+// Parse cookies
 app.use(cookieParser());
+
+// Body parsing middleware
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 // Request logging
 app.use((req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    console.log('Origin:', req.get('origin'));
+    console.log('Cookies:', req.cookies);
     next();
 });
 
@@ -87,7 +98,7 @@ app.use('/api/auth', authRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error('Error:', err);
     res.status(500).json({ 
         message: 'Something went wrong!',
         error: process.env.NODE_ENV === 'production' ? 'Internal server error' : err.message
@@ -103,6 +114,7 @@ const startServer = async () => {
         app.listen(PORT, '0.0.0.0', () => {
             console.log(`Server is running on port ${PORT}`);
             console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+            console.log('CORS allowed origins:', allowedOrigins);
         });
     } catch (error) {
         console.error('Failed to start server:', error);

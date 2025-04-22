@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify({ username, password })
             });
 
@@ -118,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 headers: {
                     'Accept': 'application/json'
                 },
+                credentials: 'include',
                 mode: 'cors'
             });
             
@@ -161,6 +163,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify({ username, email, password }),
                 mode: 'cors'
             });
