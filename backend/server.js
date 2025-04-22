@@ -32,13 +32,65 @@ app.use(cors({
 
 app.use(express.json());
 
-// Connect to MongoDB
+// Connect to MongoDB with detailed logging
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/richytech', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('MongoDB connection error:', err));
+.then(() => {
+    console.log('Successfully connected to MongoDB.');
+    console.log('MongoDB Connection Details:');
+    console.log('Database:', mongoose.connection.name);
+    console.log('Host:', mongoose.connection.host);
+    console.log('Port:', mongoose.connection.port);
+})
+.catch(err => {
+    console.error('MongoDB connection error:', err);
+    console.error('Connection string:', process.env.MONGODB_URI ? '[HIDDEN]' : 'mongodb://localhost:27017/richytech');
+    console.error('Full error details:', JSON.stringify(err, null, 2));
+});
+
+// Add a MongoDB connection event listeners
+mongoose.connection.on('error', (err) => {
+    console.error('MongoDB connection error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+    console.log('MongoDB disconnected');
+});
+
+mongoose.connection.on('reconnected', () => {
+    console.log('MongoDB reconnected');
+});
+
+// Health check endpoint
+app.get('/api/health', async (req, res) => {
+    try {
+        // Check MongoDB connection
+        const dbState = mongoose.connection.readyState;
+        const dbStatus = {
+            0: "disconnected",
+            1: "connected",
+            2: "connecting",
+            3: "disconnecting"
+        };
+
+        res.json({
+            status: 'ok',
+            timestamp: new Date(),
+            mongodb: {
+                state: dbStatus[dbState],
+                database: mongoose.connection.name,
+                host: mongoose.connection.host
+            }
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            error: error.message
+        });
+    }
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
