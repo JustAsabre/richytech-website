@@ -19,7 +19,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Get the base URL for API calls
     const getBaseUrl = () => {
         const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        return isLocalhost ? 'http://localhost:5000' : 'https://your-backend-url.onrender.com'; // Replace with your actual Render URL
+        return isLocalhost 
+            ? 'http://localhost:5000' 
+            : 'https://richytech-backend.onrender.com'; // Replace with your actual Render URL
     };
 
     // Get the base URL for frontend redirects

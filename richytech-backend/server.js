@@ -12,7 +12,7 @@ const app = express();
 const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:5000',
-    'https://richytech-website-1.onrender.com' // Replace with your actual Netlify domain
+    'https://your-netlify-app.netlify.app' // Replace with your actual Netlify domain
 ];
 
 app.use(cors({
@@ -48,8 +48,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: 'Something went wrong!' });
 });
 
-// Use the PORT environment variable provided by Render
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 }); 
