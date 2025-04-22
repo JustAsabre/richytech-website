@@ -69,15 +69,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const password = document.getElementById('loginPassword').value.trim();
 
         try {
+            console.log('Attempting login with:', { username });
             const response = await fetch(`${getBaseUrl()}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({ username, password })
             });
 
+            console.log('Login response status:', response.status);
             const data = await response.json();
+            console.log('Login response data:', data);
 
             if (response.ok) {
                 // Store user data
@@ -98,8 +102,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById('loginPassword').value = '';
             }
         } catch (error) {
-            showMessage(loginMessage, 'An error occurred during login', 'error');
-            console.error('Login error:', error);
+            console.error('Login error details:', error);
+            showMessage(loginMessage, `Login failed: ${error.message}`, 'error');
         }
     });
 
@@ -111,15 +115,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const password = document.getElementById('regPassword').value.trim();
 
         try {
+            console.log('Attempting registration with:', { username, email });
             const response = await fetch(`${getBaseUrl()}/api/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({ username, email, password })
             });
 
+            console.log('Registration response status:', response.status);
             const data = await response.json();
+            console.log('Registration response data:', data);
 
             if (response.ok) {
                 showMessage(registerMessage, 'Registration successful! Please login.', 'success');
@@ -132,8 +140,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 showMessage(registerMessage, data.message || 'Registration failed', 'error');
             }
         } catch (error) {
-            showMessage(registerMessage, 'An error occurred during registration', 'error');
-            console.error('Registration error:', error);
+            console.error('Registration error details:', error);
+            showMessage(registerMessage, `Registration failed: ${error.message}`, 'error');
         }
     });
 

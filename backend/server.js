@@ -9,28 +9,22 @@ dotenv.config();
 const app = express();
 
 // CORS configuration
-const allowedOrigins = [
-    'http://localhost:3000',
-    'http://localhost:5000',
-    'https://richytech-website-1.onrender.com', // Your Render backend URL
-    'https://richtytechshoppingsite.netlify.app' // Your Netlify frontend URL
-];
-
 app.use(cors({
-    origin: function(origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
-    credentials: true
+    origin: '*', // Temporarily allow all origins for debugging
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
+
+// Add request logging middleware
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    console.log('Headers:', req.headers);
+    console.log('Body:', req.body);
+    next();
+});
 
 // Connect to MongoDB with detailed logging
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/richytech', {
