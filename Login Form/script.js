@@ -107,6 +107,19 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    // Add this function after getBaseUrl()
+    async function testBackendConnection() {
+        try {
+            const response = await fetch(`${getBaseUrl()}/api/health`);
+            const data = await response.json();
+            console.log('Backend health check:', data);
+            return true;
+        } catch (error) {
+            console.error('Backend connection test failed:', error);
+            return false;
+        }
+    }
+
     // Handle registration form submission
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -115,14 +128,24 @@ document.addEventListener("DOMContentLoaded", function() {
         const password = document.getElementById('regPassword').value.trim();
 
         try {
+            // Test backend connection first
+            const isBackendAvailable = await testBackendConnection();
+            if (!isBackendAvailable) {
+                throw new Error('Cannot connect to the server. Please try again later.');
+            }
+
             console.log('Attempting registration with:', { username, email });
-            const response = await fetch(`${getBaseUrl()}/api/auth/register`, {
+            const baseUrl = getBaseUrl();
+            console.log('Using backend URL:', baseUrl);
+            
+            const response = await fetch(`${baseUrl}/api/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ username, email, password })
+                body: JSON.stringify({ username, email, password }),
+                mode: 'cors'
             });
 
             console.log('Registration response status:', response.status);
@@ -131,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (response.ok) {
                 showMessage(registerMessage, 'Registration successful! Please login.', 'success');
-                // Clear form and switch to login
                 registerForm.reset();
                 setTimeout(() => {
                     container.classList.remove('active');

@@ -9,20 +9,49 @@ dotenv.config();
 const app = express();
 
 // CORS configuration
+const allowedOrigins = [
+    'http://localhost:3000',
+    'http://localhost:5000',
+    'https://richytechshoppingsite.netlify.app',
+    'https://richytech-website-1.onrender.com'
+];
+
 app.use(cors({
-    origin: '*', // Temporarily allow all origins for debugging
+    origin: function(origin, callback) {
+        console.log('Request origin:', origin);
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) {
+            console.log('No origin provided, allowing request');
+            return callback(null, true);
+        }
+        
+        if (allowedOrigins.indexOf(origin) === -1) {
+            console.log('Origin not allowed:', origin);
+            return callback(new Error('Not allowed by CORS'));
+        }
+        console.log('Origin allowed:', origin);
+        return callback(null, true);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
+
+// Add error handling for CORS preflight
+app.options('*', cors());
 
 app.use(express.json());
 
-// Add request logging middleware
+// Add request logging middleware with more details
 app.use((req, res, next) => {
-    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-    console.log('Headers:', req.headers);
-    console.log('Body:', req.body);
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] ${req.method} ${req.url}`);
+    console.log('Headers:', JSON.stringify(req.headers, null, 2));
+    if (req.body && Object.keys(req.body).length > 0) {
+        const sanitizedBody = { ...req.body };
+        if (sanitizedBody.password) sanitizedBody.password = '[HIDDEN]';
+        console.log('Body:', JSON.stringify(sanitizedBody, null, 2));
+    }
     next();
 });
 
