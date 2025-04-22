@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const getBaseUrl = () => {
         const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
         return isLocalhost 
-            ? 'http://localhost:5000' 
-            : 'https://richytech-website-1.onrender.com'; // Your actual Render backend URL
+            ? 'http://localhost:3000' 
+            : 'https://richytech-website-1.onrender.com';
     };
 
     // Get the base URL for frontend redirects
@@ -107,10 +107,27 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Add this function after getBaseUrl()
+    // Add this function to check if the backend is available
     async function testBackendConnection() {
         try {
-            const response = await fetch(`${getBaseUrl()}/api/health`);
+            const baseUrl = getBaseUrl();
+            console.log('Testing connection to:', baseUrl);
+            
+            const response = await fetch(`${baseUrl}/api/health`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                mode: 'cors'
+            });
+            
+            if (!response.ok) {
+                console.error('Health check failed:', response.status, response.statusText);
+                const text = await response.text();
+                console.error('Response:', text);
+                return false;
+            }
+            
             const data = await response.json();
             console.log('Backend health check:', data);
             return true;

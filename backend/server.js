@@ -87,7 +87,7 @@ mongoose.connection.on('reconnected', () => {
 });
 
 // Health check endpoint
-app.get('/api/health', async (req, res) => {
+app.get('/api/health', (req, res) => {
     try {
         // Check MongoDB connection
         const dbState = mongoose.connection.readyState;
@@ -100,7 +100,9 @@ app.get('/api/health', async (req, res) => {
 
         res.json({
             status: 'ok',
+            message: 'Server is running',
             timestamp: new Date(),
+            environment: process.env.NODE_ENV || 'development',
             mongodb: {
                 state: dbStatus[dbState],
                 database: mongoose.connection.name,
@@ -108,8 +110,10 @@ app.get('/api/health', async (req, res) => {
             }
         });
     } catch (error) {
+        console.error('Health check error:', error);
         res.status(500).json({
             status: 'error',
+            message: 'Health check failed',
             error: error.message
         });
     }
@@ -125,7 +129,8 @@ app.use((err, req, res, next) => {
 });
 
 // Use the PORT environment variable provided by Render
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
+    console.log(`Health check endpoint: ${process.env.PORT ? 'https://richytech-website-1.onrender.com' : 'http://localhost:3000'}/api/health`);
 }); 
