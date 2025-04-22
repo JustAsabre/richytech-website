@@ -1,0 +1,177 @@
+/* wishlist.css - Styles specific to the wishlist page content */
+
+/* Adjust home-section padding ONLY if wishlist page needs unique padding */
+/* .home-section {
+    padding: 20px 20px 20px 98px; Override global padding if necessary
+} */
+
+.wishlist-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px; /* Padding within the container */
+}
+
+.wishlist-header {
+    text-align: center;
+    margin-bottom: 35px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dce1e7;
+}
+
+.wishlist-header h1 {
+    color: #11101D;
+    font-size: 2.2em;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.wishlist-header p {
+    color: #555;
+    font-size: 1.1em;
+}
+
+#wishlist-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Responsive grid */
+    gap: 25px;
+}
+
+.wishlist-item {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Removed animation for simplicity unless specifically needed */
+    /* animation: itemFadeIn 0.5s ease-out forwards; */
+    /* opacity: 0; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Stagger animation (Optional) */
+/* @keyframes itemFadeIn { ... } */
+/* .wishlist-item:nth-child(n) { animation-delay: ... } */
+
+.wishlist-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.wishlist-item img {
+    width: 100%;
+    max-width: 160px;
+    height: 160px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    align-self: center;
+}
+
+.wishlist-item h3 {
+    font-size: 1.1em;
+    margin: 10px 0 5px 0;
+    color: #333;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wishlist-item p { /* Price */
+    font-size: 1em;
+    color: #555;
+    margin: 5px 0 15px 0;
+    font-weight: bold;
+}
+
+.wishlist-item .btn-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.wishlist-item button {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 0.9em;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; /* Center content */
+    gap: 5px;
+}
+.wishlist-item button:hover {
+    transform: scale(1.05);
+}
+.wishlist-item button i {
+    font-size: 1.1em;
+}
+
+.btn-remove-wishlist {
+    background: #e74c3c;
+}
+.btn-remove-wishlist:hover {
+    background: #c0392b;
+}
+
+.btn-add-to-cart-wishlist {
+     background: #2ecc71;
+}
+.btn-add-to-cart-wishlist:hover {
+     background: #27ae60;
+}
+.btn-add-to-cart-wishlist:disabled {
+     background-color: #aaa;
+     cursor: not-allowed;
+     opacity: 0.7;
+}
+
+
+.empty-wishlist-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.2em;
+    color: #666;
+    padding: 40px 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    display: none; /* Hidden by default, shown by JS */
+}
+
+/* Responsive adjustments specific to wishlist grid/content */
+@media (max-width: 768px) {
+    #wishlist-items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+    }
+    .wishlist-item {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    #wishlist-items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+     .wishlist-item img {
+        max-width: 120px;
+        height: 120px;
+    }
+     .wishlist-item h3 { font-size: 1em; }
+     .wishlist-item p { font-size: 0.9em; }
+     .wishlist-item button { font-size: 0.8em; padding: 6px 10px;}
+     .wishlist-item .btn-actions { flex-direction: column; }
+     .wishlist-item .btn-actions button { width: 100%; }
+}

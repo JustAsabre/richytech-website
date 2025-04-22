@@ -1,0 +1,770 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* --- General Animations & Transitions --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-element {
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0; /* Start hidden */
+}
+
+/* Apply smooth transitions to common interactive elements */
+a, button, input[type="submit"], input[type="button"] {
+    transition: all 0.3s ease; /* Smooth transitions for links and buttons */
+}
+
+/* --- Body Scrollbar (Optional Enhancement) --- */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+/* Ensure parent link has relative positioning */
+.sidebar li a {
+    position: relative;
+    display: flex; /* Added for alignment */
+    height: 100%;
+    width: 100%;
+    border-radius: 12px;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.3s ease, background-color 0.2s ease; /* Refined transition */
+    background: #11101D; /* Base background */
+}
+.sidebar li a:hover {
+    background: #fff; /* Hover background */
+    transform: translateX(3px); /* Slight shift on hover */
+}
+.sidebar li a:hover .links_name,
+.sidebar li a:hover i { /* Target icon within hovered link */
+    color: #11101D; /* Change icon and text color on hover */
+}
+
+.sidebar li a .links_name {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    margin-left: 10px; /* Space between icon and text */
+}
+.sidebar.open li a .links_name {
+    opacity: 1;
+    pointer-events: auto;
+}
+.sidebar li a i { /* Icon styling within links */
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    min-width: 50px; /* Ensure consistent width */
+    text-align: center;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    transition: color 0.3s ease; /* Added */
+}
+
+
+/* --- Cart Badge Styles --- */
+.cart-badge {
+    position: absolute;
+    top: 10px; /* Adjust position as needed */
+    right: 10px; /* Adjust position as needed */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 16px; /* Ensure it looks okay even with single digit */
+    text-align: center;
+    display: none; /* Hidden by default, shown via JS */
+    z-index: 2;
+    transition: transform 0.3s ease; /* Add transition */
+}
+.sidebar li a:hover .cart-badge { /* Make badge pop slightly */
+    transform: scale(1.1);
+}
+
+.sidebar.open li a .cart-badge {
+    /* Adjust position if needed when sidebar is open */
+    right: 15px;
+}
+
+/* --- Wishlist Badge Styles (Standardized) --- */
+.wishlist-badge {
+    position: absolute;
+    top: 10px;     /* Match cart badge top */
+    right: 10px;    /* Match cart badge right (for closed state) */
+    background-color: red; /* Match cart badge color */
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px; /* Match cart badge padding */
+    font-size: 10px;    /* Match cart badge font-size */
+    font-weight: bold;
+    line-height: 1;
+    min-width: 16px; /* Match cart badge min-width */
+    text-align: center;
+    z-index: 2;
+    opacity: 0; /* Keep opacity control */
+    transform: none; /* Remove transform used for left positioning */
+    /* Use transition primarily for opacity and transform (hover) */
+    transition: opacity 0.3s ease, transform 0.3s ease, right 0.5s ease;
+}
+
+/* Controls visibility */
+.wishlist-badge.visible {
+    opacity: 1;
+}
+
+/* Adjust position when sidebar is open (same as cart badge) */
+.sidebar.open li a .wishlist-badge {
+    right: 15px;
+}
+
+/* Consistent hover effect */
+.sidebar li a:hover .wishlist-badge {
+    transform: scale(1.1);
+}
+/* --- End of Wishlist Badge Styles --- */
+
+
+/* --- Item Button Styles --- */
+.item .item-buttons {
+    display: flex;
+    justify-content: center; /* Or space-between, space-around */
+    align-items: center;
+    gap: 10px; /* Space between buttons */
+    margin-top: 10px;
+}
+
+.item .add-to-cart-btn {
+    flex-grow: 1; /* Allow cart button to take more space if needed */
+    background: #f4a261;
+    border: none;
+    padding: 10px 15px; /* Adjust padding */
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Use all */
+    font-size: 14px; /* Match font size */
+    display: inline-flex; /* For potential icons later */
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.item .add-to-cart-btn:hover {
+    background: #e76f51;
+    transform: scale(1.03); /* Add scale */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.item .add-to-wishlist-btn {
+    background: #eee; /* Lighter background for wishlist */
+    border: 1px solid #ccc;
+    color: #e74c3c; /* Heart color */
+    padding: 8px 10px; /* Slightly smaller padding */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; /* Icon size */
+    line-height: 1; /* Align icon better */
+    transition: all 0.3s ease; /* Use all */
+    display: inline-flex; /* Align icon inside */
+    align-items: center;
+    justify-content: center;
+}
+
+.item .add-to-wishlist-btn:hover {
+    background-color: #e74c3c;
+    color: white;
+    border-color: #e74c3c;
+    transform: scale(1.05); /* Add scale */
+     box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+.item .add-to-wishlist-btn:hover i { /* Ensure icon is white on hover */
+    color: white;
+}
+
+/* Style for when item is already in wishlist */
+.item .add-to-wishlist-btn.in-wishlist {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+    color: white;
+    cursor: not-allowed;
+}
+.item .add-to-wishlist-btn.in-wishlist i { /* Ensure icon inside is white */
+     color: white;
+}
+
+
+/* --- Sidebar General Styles --- */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 78px;
+    background: #11101D;
+    padding: 6px 14px;
+    z-index: 1000; /* High z-index */
+    transition: all 0.5s ease;
+}
+
+.sidebar.open {
+    width: 250px;
+}
+
+.sidebar .logo-details {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Pushes button to right when open */
+    position: relative;
+}
+
+.sidebar .logo-details .logo_name {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.5s ease; /* Only transition opacity */
+    margin-left: 10px; /* Space from potential icon */
+}
+
+.sidebar.open .logo-details .logo_name {
+    opacity: 1;
+}
+
+.sidebar .logo-details #btn { /* Menu toggle button */
+    position: absolute; /* Keep absolute */
+    top: 50%;
+    right: 0; /* Aligns to right edge of logo-details container */
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: #fff; /* Ensure icon is visible */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    width: 50px; /* Give it width for positioning */
+    height: 60px; /* Match height */
+    line-height: 60px; /* Center icon vertically */
+}
+
+/* General icon styling inside sidebar */
+.sidebar i {
+    color: #fff;
+    height: 50px; /* Base height for icons in links */
+    min-width: 50px; /* Base width for icons in links */
+    font-size: 18px; /* Base size */
+    text-align: center;
+    line-height: 50px; /* Align vertically */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+
+.sidebar .nav-list {
+    margin-top: 20px;
+    height: calc(100% - 80px); /* Adjust height calculation */
+    padding: 0; /* Remove default padding */
+    overflow-y: auto; /* Allow scrolling */
+    overflow-x: hidden;
+}
+
+
+.sidebar li {
+    position: relative;
+    margin: 8px 0;
+    list-style: none;
+}
+
+/* Tooltip Styles */
+.sidebar li .tooltip {
+    position: absolute;
+    top: -20px;
+    left: calc(100% + 15px);
+    z-index: 1001; /* Above sidebar */
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #11101D; /* Text color */
+    opacity: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Add transition */
+    transform: translateX(5px); /* Start slightly shifted */
+}
+
+.sidebar li:hover .tooltip {
+    opacity: 1;
+    pointer-events: auto;
+    /* Adjust transform for centering vertically and moving horizontally */
+    transform: translate(0, -50%);
+    top: 50%; /* Center vertically */
+}
+
+
+.sidebar.open li .tooltip {
+    display: none; /* Hide tooltips when open */
+}
+
+/* Search Input Area */
+.sidebar li:first-child { /* Target search li */
+    border-radius: 12px;
+    padding-left: 0; /* Remove padding */
+    position: relative;
+    display: flex; /* Use flex for alignment */
+    align-items: center;
+    background: #1d1b31; /* Set background on li */
+    overflow: hidden; /* Prevent icon overlap */
+}
+.sidebar li:first-child i.bx-search { /* Position search icon */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 22px;
+    color: #fff;
+    cursor: pointer; /* Make icon clickable */
+    background: transparent; /* No background needed */
+    z-index: 1; /* Ensure icon is clickable */
+}
+
+.sidebar input[type="text"], .sidebar input[type="email"] { /* General input styling */
+    font-size: 15px;
+    color: #fff;
+    font-weight: 400;
+    outline: none;
+    height: 50px;
+    width: 100%;
+    border: none;
+    border-radius: 12px; /* Full radius */
+    transition: all 0.5s ease;
+    background: #1d1b31; /* Match li background */
+    padding: 0 10px 0 50px; /* Left padding for icon */
+}
+.sidebar input[type="text"]:focus, .sidebar input[type="email"]:focus {
+     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2); /* Subtle focus */
+}
+
+
+/* Profile Section */
+.sidebar li.profile {
+    position: fixed;
+    height: 60px;
+    width: 78px;
+    left: 0;
+    bottom: 0; /* Align to bottom */
+    padding: 10px 0 10px 14px; /* Adjust padding */
+    background: #1d1b31; /* Slightly different background */
+    transition: all 0.5s ease;
+    overflow: hidden;
+    display: flex; /* Use flex for alignment */
+    align-items: center;
+}
+
+.sidebar.open li.profile {
+    width: 250px;
+}
+
+.sidebar li .profile-details {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    opacity: 0; /* Hide details in closed state */
+    transition: opacity 0.4s ease 0.1s; /* Delay opacity transition */
+    flex-grow: 1; /* Allow details to take space */
+    min-width: 0; /* Allow shrinking */
+    padding-right: 50px; /* Space for logout icon */
+}
+
+.sidebar.open li .profile-details {
+     opacity: 1; /* Show details in open state */
+}
+
+
+.sidebar li img { /* Profile image */
+    height: 40px; /* Slightly smaller */
+    width: 40px;
+    object-fit: cover; /* Use cover */
+    border-radius: 6px;
+    margin-right: 10px;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.sidebar li.profile .name,
+.sidebar li.profile .job {
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden; /* Prevent overflow */
+    text-overflow: ellipsis;
+}
+
+.sidebar li.profile .job {
+    font-size: 12px;
+}
+
+.sidebar .profile #log_out {
+    position: absolute;
+    top: 0; /* Align top */
+    right: 0;
+    transform: none; /* Remove vertical transform */
+    width: 50px;
+    background: #1d1b31;
+    height: 60px;
+    line-height: 60px;
+    transition: all 0.5s ease;
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
+    cursor: pointer;
+    display: flex; /* Center icon */
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #333; /* Optional separator */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.sidebar.open .profile #log_out {
+    background: none; /* Transparent background when open */
+    right: 0; /* Keep aligned right */
+     border-left: none;
+}
+.sidebar .profile #log_out:hover {
+    background-color: rgba(255, 0, 0, 0.2); /* Reddish hover for logout */
+}
+
+
+/* --- Home Section (Main Content Area) --- */
+.home-section {
+    position: relative;
+    background: #e4e9f7;
+    min-height: 100vh;
+    top: 0;
+    left: 78px; /* Space for closed sidebar */
+    width: calc(100% - 78px);
+    transition: left 0.5s ease, width 0.5s ease; /* Separate transitions */
+    padding: 25px; /* Consistent padding */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.sidebar.open ~ .home-section {
+    left: 250px; /* Space for open sidebar */
+    width: calc(100% - 250px);
+}
+
+.home-section .text { /* Simple text heading */
+    display: block; /* Make it block */
+    color: #11101D;
+    font-size: 24px; /* Adjusted size */
+    font-weight: 600; /* Bolder */
+    margin-bottom: 25px;
+    border-bottom: 1px solid #ccc; /* Add separator */
+    padding-bottom: 10px;
+}
+
+/* --- Container & Shop Items --- */
+.container {
+    /* Removed centering styles to allow natural flow */
+    text-align: center; /* Keep text centered if needed */
+    width: 100%;
+    padding: 0; /* Remove container padding */
+    /* animation: fadeIn 0.6s ease-out forwards; */ /* Apply animation directly or via class */
+    /* opacity: 0; */
+}
+
+.container h1 {
+    color: #11101D;
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+.container p {
+    color: #555;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+
+.shop-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.item {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.item img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    background: #f8f9fa;
+    padding: 10px;
+    transition: transform 0.5s ease;
+}
+
+.item:hover img {
+    transform: scale(1.08);
+}
+
+.item h3 {
+    padding: 0 20px;
+    margin: 15px 0 10px 0;
+    font-size: 18px;
+    color: #2c3e50;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    min-height: 50px;
+}
+
+.item p {
+    padding: 0 20px;
+    font-size: 20px;
+    color: #1d1b31;
+    font-weight: 700;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.item p::before {
+    content: 'GH₵';
+    font-size: 0.8em;
+    color: #666;
+}
+
+/* Item Buttons */
+.item-buttons {
+    padding: 0 20px 20px;
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.item .add-to-cart-btn {
+    flex: 1;
+    padding: 12px 20px;
+    background: #1d1b31;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.item .add-to-cart-btn:hover {
+    background: #11101D;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.item .add-to-wishlist-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    background: #f8f9fa;
+    color: #1d1b31;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.item .add-to-wishlist-btn:hover {
+    background: #1d1b31;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.item .add-to-wishlist-btn.in-wishlist {
+    background: #1d1b31;
+    color: white;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .item {
+    background: #2c3e50;
+    border-color: rgba(255,255,255,0.1);
+}
+
+body.dark-mode .item img {
+    background: #34495e;
+}
+
+body.dark-mode .item h3 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .item p {
+    color: #fff;
+}
+
+body.dark-mode .item p::before {
+    color: #bbb;
+}
+
+body.dark-mode .item .add-to-wishlist-btn {
+    background: #34495e;
+    color: #e0e0e0;
+}
+
+body.dark-mode .item .add-to-wishlist-btn:hover,
+body.dark-mode .item .add-to-wishlist-btn.in-wishlist {
+    background: #1d1b31;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .shop-items {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .shop-items {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .item h3 {
+        font-size: 16px;
+        min-height: 44px;
+        padding: 0 15px;
+    }
+
+    .item p {
+        font-size: 18px;
+        padding: 0 15px;
+    }
+
+    .item-buttons {
+        padding: 0 15px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .shop-items {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .item h3 {
+        font-size: 14px;
+        min-height: 40px;
+        margin: 12px 0 8px 0;
+    }
+
+    .item p {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    .item .add-to-cart-btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .item .add-to-wishlist-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+}
+
+/* --- Scroll-to-Top Button Styles --- */
+#scrollTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 999;
+    border: none;
+    outline: none;
+    background-color: #11101D; /* Sidebar color */
+    color: white;
+    cursor: pointer;
+    padding: 12px; /* Adjust padding */
+    border-radius: 50%; /* Circular */
+    font-size: 18px; /* Icon size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    opacity: 0; /* Start transparent */
+    visibility: hidden; /* Start hidden */
+}
+
+#scrollTopBtn.visible { /* Class added by JS */
+    display: block;
+    opacity: 0.8;
+    visibility: visible;
+}
+
+
+#scrollTopBtn:hover {
+    background-color: #333; /* Darker hover */
+    opacity: 1;
+    transform: scale(1.1);
+}

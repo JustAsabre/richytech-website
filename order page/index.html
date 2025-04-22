@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Site</title>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <div class="logo_name">richytech</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search...">
+                <span class="tooltip">Search</span>
+            </li>
+            <li>
+                <a href="../index.html">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+            <li>
+                <a href="../Login Form/user.html">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">User</span>
+                </a>
+                <span class="tooltip">User</span>
+            </li>
+            
+            <li>
+                <a href="../categories.html">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Categories</span>
+                </a>
+                <span class="tooltip">Categories</span>
+            </li>
+            <li>
+                <a href="../order page/index.html">
+                    <i class='bx bx-cart-alt'></i>
+                    <span class="links_name">Cart</span>
+                    <span id="cart-item-count" class="cart-badge">0</span>
+                </a>
+                <span class="tooltip">Cart</span>
+            </li>
+            <li>
+                <a href="../wishlist.html">  <i class='bx bx-heart'></i>
+                    <span class="links_name">Wishlist</span>
+                    <span id="wishlist-item-count" class="wishlist-badge">0</span>
+                </a>
+                <span class="tooltip">Wishlist</span>
+            </li>
+            <li>
+                <a href="../contact.html">
+                    <i class='bx bx-chat'></i>
+                    <span class="links_name">Contact Us</span>
+                </a>
+                <span class="tooltip">Contact Us</span>
+            </li>
+            <li>
+                <a href="../Settings/index.html">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Settings</span>
+                    </a>
+                <span class="tooltip">Settings</span>
+            </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <img src="../images/profile.png" alt="profileImg">
+                    <div class="name_job">
+                        <div class="name">Richard Asabre</div>
+                        <div class="job">Web Developer</div>
+                    </div>
+                </div>
+                <i class='bx bx-log-out' id="log_out"></i>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <div class="text"></div>
+        <div class="container">
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div class="order-items">
+                    <div class="order-item">
+                        <img src="../Images/fh_whiskey.jpg" alt="Product Image">
+                        <div class="item-details">
+                            <h3>Freind at Hand Irish Whiskey</h3>
+                            <p>Quantity: 1</p>
+                            <p>Price: GH₵49.99</p>
+                        </div>
+                    </div>
+                    <div class="order-item">
+                        <img src="../Images/R_Milie.jpg" alt="Product Image">
+                        <div class="item-details">
+                            <h3>Richard Mille 50-03 McLaren F1</h3>
+                            <p>Quantity: 2</p>
+                            <p>Price: GH₵29.99</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-total">
+                    <p>Subtotal: GH₵49.99</p>
+                    <p>Shipping: GH₵5.99</p>
+                    <h3>Total: GH₵55.98</h3>
+                </div>
+            </div>
+
+            <div class="shipping-info">
+                <h2>Shipping Information</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required>
+                        <span class="error-message" id="name-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Shipping Address</label>
+                        <textarea id="address" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required> 
+                        <span class="error-message" id="phone-error"></span>
+                    </div>
+                </form>
+            </div>
+
+            <div class="payment-method">
+                <h2>Payment Method</h2>
+                <div class="payment-options">
+                    <label>
+                        <input type="radio" name="payment" value="credit" checked>
+                        Credit Card
+                    </label>
+                    <label>
+                        <input type="radio" name="payment" value="paypal">
+                        PayPal
+                    </label>
+                </div>
+                <div class="credit-card-details">
+                    <div class="form-group">
+                        <label for="card-name">Name on Card</label>
+                        <input type="text" id="card-name" required>
+                    </div>
+                    <div class="form-group card-number-group">
+                        <label for="card-number">Card Number</label>
+                        <div class="input-with-icon">
+                            <i class='bx bx-credit-card'></i>
+                            <input type="text" id="card-number" required pattern="\d{13,16}" title="Enter a valid 13-16 digit card number">
+                        </div>
+                        <span class="error-message" id="card-number-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiry-date">Expiry Date</label>
+                        <input type="text" id="expiry-date" placeholder="MM/YY" required pattern="(0[1-9]|1[0-2])\/\d{2}" title="Enter date in MM/YY format">
+                        <span class="error-message" id="expiry-date-error"></span> 
+                    </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" required pattern="\d{3,4}" title="Enter 3 or 4 digit CVV">
+                            <span class="error-message" id="cvv-error"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-actions">
+                <button class="btn-cancel">
+                    <i class='bx bx-x-circle'></i> Cancel Order
+                </button>
+               <button class="btn-place-order">
+                   <i class='bx bx-check-shield'></i> Place Order
+               </button>
+           </div>
+
+    </section>
+    <script src="../script.js" defer></script>   <script src="../script.js" defer></script>
+    <script src="../script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+/* order page/styles.css - Page-specific styles */
+
+* {
+    /* Consider removing if set globally in main styles.css */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* --- REMOVE CONFLICTING LAYOUT RULES --- */
+/* Remove all rules related to .sidebar, .sidebar.open, .home-section positioning (left, width) */
+/* These should be solely controlled by the main ../styles.css */
+
+/* --- Styling for Order Page Content --- */
+
+/* Ensure home-section on this page has appropriate padding if needed */
+/* .home-section { */
+    /* padding: 20px; */ /* Example: Ensure padding if main styles don't cover it */
+/* } */
+
+.container {
+    flex-grow: 1; /* Allow container to take space */
+    display: flex;
+    flex-direction: column; /* Stack sections vertically */
+    padding: 20px; /* Padding around content */
+    color: #11101D;
+    max-width: 900px; /* Constrain width for better readability */
+    margin: 0 auto; /* Center the container */
+    width: 100%; /* Ensure it takes available space */
+}
+
+.order-summary, .shipping-info, .payment-method {
+    background: white;
+    border-radius: 8px;
+    padding: 25px; /* Increased padding */
+    margin-bottom: 25px; /* Increased margin */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Slightly stronger shadow */
+    animation: fadeIn 0.5s ease-in forwards; /* Keep fade-in */
+    opacity: 0; /* Start hidden for animation */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transitions */
+}
+
+.order-summary:nth-child(1) { animation-delay: 0.1s; }
+.shipping-info:nth-child(2) { animation-delay: 0.2s; }
+.payment-method:nth-child(3) { animation-delay: 0.3s; }
+
+.order-summary:hover, .shipping-info:hover, .payment-method:hover {
+    transform: translateY(-3px); /* Subtle lift on hover */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.order-summary h2, .shipping-info h2, .payment-method h2 {
+    margin-top: 0; /* Remove default top margin */
+    margin-bottom: 25px; /* Increased bottom margin */
+    color: #11101D;
+    font-size: 1.5em; /* Slightly larger headings */
+    border-bottom: 1px solid #eee; /* Add separator */
+    padding-bottom: 10px;
+}
+
+/* Order Items Styling */
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Increased gap */
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Increased gap */
+    padding-bottom: 20px; /* Add padding below each item */
+    border-bottom: 1px solid #f0f0f0; /* Lighter separator */
+    position: relative; /* For remove button positioning if needed */
+}
+.order-item:last-child {
+    border-bottom: none; /* Remove border for last item */
+    padding-bottom: 0;
+}
+
+.order-item img {
+    width: 70px; /* Slightly smaller image */
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px; /* Softer radius */
+    border: 1px solid #eee;
+}
+
+.order-item .item-details {
+    flex-grow: 1; /* Allow details to take available space */
+}
+
+
+.order-item h3 {
+    margin: 0 0 5px 0; /* Adjust margin */
+    font-size: 1.1em;
+    color: #333;
+}
+
+.order-item p {
+    margin: 2px 0; /* Adjust margin */
+    color: #666;
+    font-size: 0.95em;
+}
+
+/* Remove Button Styling */
+.remove-item-btn {
+    background: #f8f9fa; /* Light background */
+    border: 1px solid #dee2e6; /* Subtle border */
+    color: #e74c3c; /* Red icon/text */
+    padding: 6px 10px; /* Adjust padding */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+    gap: 5px;
+    margin-top: 8px; /* Space above button */
+}
+.remove-item-btn i { /* Icon size */
+    font-size: 1.1em;
+}
+
+.remove-item-btn:hover {
+    background: #e74c3c; /* Red background on hover */
+    color: white;
+    border-color: #e74c3c;
+    transform: scale(1.05); /* Slight scale effect */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+/* Order Total Styling */
+.order-total {
+    margin-top: 25px; /* Increased margin */
+    padding-top: 20px; /* Increased padding */
+    border-top: 2px solid #eee; /* Stronger top border */
+    text-align: right; /* Align totals to the right */
+}
+
+.order-total p {
+    margin: 8px 0; /* Increased spacing */
+    font-size: 1.05em;
+    color: #555;
+}
+.order-total p span { /* Optional: Style the value differently */
+    font-weight: 600;
+    color: #333;
+    margin-left: 10px;
+}
+
+.order-total h3 {
+    margin-top: 15px;
+    color: #11101D;
+    font-size: 1.4em;
+}
+.order-total h3 span {
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 20px; /* Increased spacing */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px; /* Increased spacing */
+    font-weight: 500;
+    font-size: 0.95em; /* Adjust size */
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group input[type="email"], /* Added email just in case */
+.form-group textarea {
+    width: 100%;
+    padding: 12px; /* Increased padding */
+    border: 1px solid #ced4da; /* Slightly darker border */
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: #80bdff; /* Focus color */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus shadow */
+}
+
+/* Error Message Styling */
+.error-message {
+    color: #dc3545; /* Bootstrap danger color */
+    font-size: 0.85em;
+    display: none; /* Hidden by default, shown by JS */
+    margin-top: 5px;
+    min-height: 1em;
+}
+
+.form-group input.invalid,
+.form-group textarea.invalid {
+    border-color: #dc3545;
+}
+.form-group input.invalid:focus,
+.form-group textarea.invalid:focus {
+     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+}
+
+
+/* Payment Method Styling */
+.payment-options {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.payment-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* Credit Card Details */
+.credit-card-details {
+    margin-top: 15px;
+    background: #f8f9fa; /* Light background */
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #eee;
+    /* Removed redundant shadow */
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 12px; /* Adjust icon position */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d; /* Icon color */
+    font-size: 20px;
+    pointer-events: none; /* Prevent icon interfering with input */
+}
+
+.input-with-icon input {
+    padding-left: 45px; /* Space for icon */
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.form-row .form-group {
+    flex: 1 1 120px; /* Allow flex wrapping */
+    min-width: 100px; /* Minimum width before wrapping */
+    margin-bottom: 0; /* Remove bottom margin if using gap */
+}
+
+/* Order Actions (Buttons) */
+.order-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end; /* Align buttons right */
+    margin-top: 30px; /* Increased margin */
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-place-order, .btn-cancel {
+    padding: 12px 25px; /* Larger buttons */
+    border: none;
+    border-radius: 6px; /* Softer radius */
+    cursor: pointer;
+    font-weight: 600; /* Bolder text */
+    font-size: 1em; /* Adjust size */
+    transition: all 0.3s ease;
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between icon and text */
+}
+.btn-place-order i, .btn-cancel i {
+    font-size: 1.2em; /* Icon size */
+}
+
+.btn-place-order {
+    background: #28a745; /* Green color */
+    color: white;
+    box-shadow: 0 2px 5px rgba(40, 167, 69, 0.3);
+}
+
+.btn-place-order:hover {
+    background: #218838; /* Darker green */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.4);
+}
+
+.btn-cancel {
+    background: #f8f9fa; /* Light grey */
+    color: #6c757d; /* Dark text */
+    border: 1px solid #ced4da;
+}
+
+.btn-cancel:hover {
+    background: #e2e6ea; /* Darker grey */
+    border-color: #adb5bd;
+    transform: translateY(-2px);
+     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Keyframes for Fade-in Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+    .order-summary, .shipping-info, .payment-method {
+        padding: 20px;
+    }
+    .order-item {
+        gap: 15px;
+    }
+    .order-item img {
+        width: 60px;
+        height: 60px;
+    }
+    .order-actions {
+        flex-direction: column; /* Stack buttons */
+        align-items: stretch; /* Full width buttons */
+    }
+    .btn-place-order, .btn-cancel {
+        width: 100%;
+        justify-content: center;
+    }
+}

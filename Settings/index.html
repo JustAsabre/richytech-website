@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - richytech</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <div class="logo_name">richytech</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search...">
+                <span class="tooltip">Search</span>
+            </li>
+            <li>
+                <a href="../index.html"> <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+            <li>
+                <a href="../Login Form/user.html"> <i class='bx bx-user'></i>
+                    <span class="links_name">User</span>
+                </a>
+                <span class="tooltip">User</span>
+            </li>
+            <li>
+                <a href="../categories.html"> <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Categories</span>
+                </a>
+                <span class="tooltip">Categories</span>
+            </li>
+            <li>
+                <a href="../order page/index.html" id="cart-icon-link"> <i class='bx bx-cart-alt'></i>
+                    <span class="links_name">Cart</span>
+                    <span id="cart-item-count" class="cart-badge">0</span>
+                </a>
+                <span class="tooltip">Cart</span>
+            </li>
+            <li>
+                <a href="../wishlist.html"> <i class='bx bx-heart'></i>
+                    <span class="links_name">Wishlist</span>
+                    <span id="wishlist-item-count" class="wishlist-badge">0</span>
+                </a>
+                <span class="tooltip">Wishlist</span>
+            </li>
+            <li>
+                <a href="../contact.html"> <i class='bx bx-chat'></i>
+                    <span class="links_name">Contact Us</span>
+                </a>
+                <span class="tooltip">Contact Us</span>
+            </li>
+            <li>
+                <a href="index.html" class="active">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Settings</span>
+                </a>
+                <span class="tooltip">Settings</span>
+            </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <img src="../Images/profile.png" alt="profileImg">
+                    <div class="name_job">
+                        <div class="name">Richard Asabre</div>
+                        <div class="job">Web Developer</div>
+                    </div>
+                </div>
+                <i class='bx bx-log-out' id="log_out"></i>
+            </li>
+        </ul>
+    </div>
+
+    <section class="home-section">
+        <div class="text">Settings</div>
+
+        <div class="settings-container">
+
+            <div class="settings-section profile-section fade-in-element">
+                <h2><i class='bx bxs-user-circle'></i> Profile</h2>
+                <div class="setting-item">
+                    <label>Status:</label>
+                    <span id="login-status" class="status-badge">Checking...</span>
+                </div>
+                <div class="setting-item">
+                    <label>Username:</label>
+                    <span id="profile-username">Loading...</span>
+                </div>
+                <div class="setting-item">
+                    <label>Email:</label>
+                    <span id="profile-email">Loading...</span>
+                </div>
+                <div class="setting-item actions">
+                    <a href="../Login Form/user.html" class="btn-secondary" style="text-decoration: none;">
+                        <i class='bx bx-edit'></i> Edit Profile
+                    </a>
+                </div>
+            </div>
+
+            <div class="settings-section account-section fade-in-element" style="animation-delay: 0.1s;">
+                 <h2><i class='bx bxs-key'></i> Account Management</h2>
+                 <div class="setting-item">
+                     <div id="password-change-form" style="display: none;">
+                         <div class="form-group">
+                             <label for="current-password">Current Password:</label>
+                             <input type="password" id="current-password" class="form-input">
+                         </div>
+                         <div class="form-group">
+                             <label for="new-password">New Password:</label>
+                             <input type="password" id="new-password" class="form-input">
+                         </div>
+                         <div class="form-group">
+                             <label for="confirm-password">Confirm New Password:</label>
+                             <input type="password" id="confirm-password" class="form-input">
+                         </div>
+                         <div class="button-group">
+                             <button id="save-password" class="btn-primary"><i class='bx bx-check'></i> Save</button>
+                             <button id="cancel-password-change" class="btn-secondary"><i class='bx bx-x'></i> Cancel</button>
+                         </div>
+                     </div>
+                     <button id="change-password" class="btn-secondary"><i class='bx bx-lock-open'></i> Change Password</button>
+                 </div>
+                 <div class="setting-item actions">
+                    <label>Delete Account:</label>
+                    <div id="delete-account-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="delete-confirm-password">Enter Password to Confirm:</label>
+                            <input type="password" id="delete-confirm-password" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="delete-confirm-checkbox">
+                                I understand this action cannot be undone
+                            </label>
+                        </div>
+                        <div class="button-group">
+                            <button id="confirm-delete-account" class="btn-danger"><i class='bx bx-trash'></i> Confirm Delete</button>
+                            <button id="cancel-delete-account" class="btn-secondary"><i class='bx bx-x'></i> Cancel</button>
+                        </div>
+                    </div>
+                    <button id="delete-account" class="btn-danger"><i class='bx bx-trash'></i> Delete Account</button>
+                 </div>
+             </div>
+
+             <div class="settings-section appearance-section fade-in-element" style="animation-delay: 0.2s;">
+                 <h2><i class='bx bxs-palette'></i> Appearance</h2>
+                 <div class="setting-item theme-toggle">
+                     <label for="theme-switch">Dark Mode:</label>
+                     <label class="switch">
+                         <input type="checkbox" id="theme-switch">
+                         <span class="slider round"></span>
+                     </label>
+                 </div>
+             </div>
+
+             <div class="settings-section notifications-section fade-in-element" style="animation-delay: 0.3s;">
+                 <h2><i class='bx bxs-bell'></i> Notifications (Dummy)</h2>
+                 <div class="setting-item">
+                     <label for="noti-offers">Special Offers:</label>
+                     <label class="switch">
+                         <input type="checkbox" id="noti-offers" checked>
+                         <span class="slider round"></span>
+                     </label>
+                 </div>
+                  <div class="setting-item">
+                     <label for="noti-updates">Order Updates:</label>
+                     <label class="switch">
+                         <input type="checkbox" id="noti-updates" checked>
+                         <span class="slider round"></span>
+                     </label>
+                 </div>
+             </div>
+
+             <div class="settings-section privacy-section fade-in-element" style="animation-delay: 0.4s;">
+                <h2><i class='bx bxs-shield-x'></i> Data & Privacy</h2>
+                <div class="setting-item actions">
+                     <label>Clear Session Data:</label>
+                     <button id="clear-data" class="btn-warning"><i class='bx bx-eraser'></i> Clear Cart, Wishlist & Session</button>
+                 </div>
+                 <div class="setting-item">
+                    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+                 </div>
+            </div>
+
+        </div> </section>
+
+    <button id="scrollTopBtn" title="Go to top"><i class='bx bx-arrow-to-top'></i></button>
+
+    <script src="../script.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>

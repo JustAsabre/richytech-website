@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
+    <title>My Wishlist - richytech</title>
+    <link rel="stylesheet" href="styles.css"> <link rel="stylesheet" href="wishlist.css"> <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <div class="logo_name">richytech</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search...">
+                <span class="tooltip">Search</span>
+            </li>
+            <li>
+                <a href="index.html">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+            <li>
+                <a href="Login Form/user.html">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">User</span>
+                </a>
+                <span class="tooltip">User</span>
+            </li>
+            <li>
+                <a href="categories.html">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Categories</span>
+                </a>
+                <span class="tooltip">Categories</span>
+            </li>
+            <li>
+                <a href="order page/index.html" id="cart-icon-link">
+                    <i class='bx bx-cart-alt'></i>
+                    <span class="links_name">Cart</span>
+                    <span id="cart-item-count" class="cart-badge" style="display: none;">0</span>
+                </a>
+                <span class="tooltip">Cart</span>
+            </li>
+            <li>
+                <a href="wishlist.html">
+                    <i class='bx bx-heart'></i>
+                    <span class="links_name">Wishlist</span>
+                     <span id="wishlist-item-count" class="wishlist-badge">0</span>
+                </a>
+                <span class="tooltip">Wishlist</span>
+            </li>
+            <li>
+                <a href="contact.html">
+                    <i class='bx bx-chat'></i>
+                    <span class="links_name">Contact Us</span>
+                </a>
+                <span class="tooltip">Contact Us</span>
+            </li>
+            <li>
+                <a href="Settings/index.html">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Settings</span>
+                    </a>
+                <span class="tooltip">Settings</span>
+            </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <img src="Images/profile.png" alt="profileImg">
+                    <div class="name_job">
+                        <div class="name">Richard Asabre</div>
+                        <div class="job">Web Developer</div>
+                    </div>
+                </div>
+                <i class='bx bx-log-out' id="log_out"></i>
+            </li>
+        </ul>
+    </div>
+
+    <section class="home-section">
+        <div class="wishlist-container">
+            <header class="wishlist-header">
+                <h1>My Wishlist</h1>
+                <p>Items you've saved for later.</p>
+            </header>
+
+            <div id="wishlist-items-grid">
+                <p class="empty-wishlist-message" style="display: none;">Your wishlist is empty. Start adding items!</p>
+            </div>
+
+        </div>
+    </section>
+
+    <script src="script.js" defer></script> <script src="wishlist.js" defer></script> 
+    <script src="script.js" defer></script></body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Signup Form</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <div class="logo_name">richytech</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <i class='bx bx-search'></i>
+                <input type="email" placeholder="Search...">
+                <span class="tooltip">Search</span>
+            </li>
+            <li>
+                <a href="../index.html">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Home</span>
+                </a>
+                <span class="tooltip">Home</span>
+            </li>
+            <li>
+                <a href="user.html">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">User</span>
+                </a>
+                <span class="tooltip">User</span>
+            </li>
+            <li>
+                <a href="../categories.html">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Categories</span>
+                </a>
+                <span class="tooltip">Categories</span>
+            </li>
+            <li>
+                <a href="../order page/index.html">
+                    <i class='bx bx-cart-alt'></i>
+                    <span class="links_name">Cart</span>
+                    <span id="cart-item-count" class="cart-badge">0</span>
+                </a>
+                <span class="tooltip">Cart</span>
+            </li>
+            <li>
+                <a href="../wishlist.html">  <i class='bx bx-heart'></i>
+                    <span class="links_name">Wishlist</span>
+                    <span id="wishlist-item-count" class="wishlist-badge">0</span>
+                </a>
+                <span class="tooltip">Wishlist</span>
+            </li>
+            <li>
+                <a href="../contact.html">
+                    <i class='bx bx-chat'></i>
+                    <span class="links_name">Contact Us</span>
+                </a>
+                <span class="tooltip">Contact Us</span>
+            </li>
+            <li>
+                <a href="../Settings/index.html">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Settings</span>
+                    </a>
+                <span class="tooltip">Settings</span>
+            </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <img src="../Images/profile.png" alt="profileImg">
+                    <div class="name_job">
+                        <div class="name" id="user-display-name">Guest</div>
+                        <div class="job">User</div>
+                    </div>
+                </div>
+                <i class='bx bx-log-out' id="log_out"></i>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <div class="container">
+            <div class="form-box login">
+                <form id="loginForm">
+                    <h1>Login</h1>
+                    <div class="input-box">
+                        <input type="text" id="loginUsername" placeholder="Username" required>
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                        <i class='bx bxs-lock-alt' ></i>
+                    </div>
+                    <div class="forgot-link">
+                        <a href="#">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="login-btn" id="login-btn">Login</button>
+                    <div id="loginMessage" class="message-box"></div>
+                    <p>or login with social platforms</p>
+                    <div class="social-icons">
+                        <a href="#"><i class='bx bxl-google' ></i></a>
+                        <a href="#"><i class='bx bxl-facebook' ></i></a>
+                        <a href="#"><i class='bx bxl-github' ></i></a>
+                        <a href="#"><i class='bx bxl-linkedin' ></i></a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="form-box register">
+                <form id="registerForm">
+                    <h1>Registration</h1>
+                    <div class="input-box">
+                        <input type="text" id="regUsername" placeholder="Username" required>
+                        <i class='bx bxs-user'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="email" id="regEmail" placeholder="Email" required>
+                        <i class='bx bxs-envelope' ></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" id="regPassword" placeholder="Password" required>
+                        <i class='bx bxs-lock-alt' ></i>
+                    </div>
+                    <button type="submit" class="btn">Register</button>
+                    <div id="registerMessage" class="message-box"></div>
+                    <p>or register with social platforms</p>
+                    <div class="social-icons">
+                        <a href="#"><i class='bx bxl-google' ></i></a>
+                        <a href="#"><i class='bx bxl-facebook' ></i></a>
+                        <a href="#"><i class='bx bxl-github' ></i></a>
+                        <a href="#"><i class='bx bxl-linkedin' ></i></a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="toggle-box">
+                <div class="toggle-panel toggle-left">
+                    <h1>Hello, Welcome!</h1>
+                    <p>Don't have an account?</p>
+                    <button class="btn register-btn">Register</button>
+                </div>
+
+                <div class="toggle-panel toggle-right">
+                    <h1>Welcome Back!</h1>
+                    <p>Already have an account?</p>
+                    <button class="btn login-btn">Login</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <style>
+        .message-box {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .message-box.success {
+            display: block;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message-box.error {
+            display: block;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+    <script src="script.js"></script>
+    <script src="../script.js" defer></script>
+</body>
+</html>
