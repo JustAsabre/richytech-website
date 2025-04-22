@@ -12,7 +12,8 @@ const app = express();
 const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:5000',
-    'https://richytech-website-1.onrender.com' // Replace with your actual Netlify domain
+    'https://richytech-website-1.onrender.com', // Your Render backend URL
+    'https://richtytechshoppingsite.netlify.app' // Your Netlify frontend URL
 ];
 
 app.use(cors({

@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
         return isLocalhost 
             ? 'http://localhost:5000' 
-            : 'https://richytech-backend.onrender.com'; // Replace with your actual Render URL
+            : 'https://richytech-website-1.onrender.com'; // Your actual Render backend URL
     };
 
     // Get the base URL for frontend redirects
