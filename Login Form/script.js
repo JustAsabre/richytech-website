@@ -65,10 +65,16 @@ document.addEventListener("DOMContentLoaded", function() {
     // Handle login form submission
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const loginButton = document.getElementById('login-btn');
         const username = document.getElementById('loginUsername').value.trim();
         const password = document.getElementById('loginPassword').value.trim();
 
         try {
+            // Disable button and show loading state
+            loginButton.disabled = true;
+            loginButton.classList.add('loading');
+            loginButton.textContent = 'Logging in...';
+
             console.log('Attempting login with:', { username });
             const response = await fetch(`${getBaseUrl()}/api/auth/login`, {
                 method: 'POST',
@@ -105,6 +111,11 @@ document.addEventListener("DOMContentLoaded", function() {
         } catch (error) {
             console.error('Login error details:', error);
             showMessage(loginMessage, `Login failed: ${error.message}`, 'error');
+        } finally {
+            // Reset button state
+            loginButton.disabled = false;
+            loginButton.classList.remove('loading');
+            loginButton.textContent = 'Login';
         }
     });
 
@@ -142,11 +153,17 @@ document.addEventListener("DOMContentLoaded", function() {
     // Handle registration form submission
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const registerButton = registerForm.querySelector('button[type="submit"]');
         const username = document.getElementById('regUsername').value.trim();
         const email = document.getElementById('regEmail').value.trim();
         const password = document.getElementById('regPassword').value.trim();
 
         try {
+            // Disable button and show loading state
+            registerButton.disabled = true;
+            registerButton.classList.add('loading');
+            registerButton.textContent = 'Registering...';
+
             // Test backend connection first
             const isBackendAvailable = await testBackendConnection();
             if (!isBackendAvailable) {
@@ -184,6 +201,11 @@ document.addEventListener("DOMContentLoaded", function() {
         } catch (error) {
             console.error('Registration error details:', error);
             showMessage(registerMessage, `Registration failed: ${error.message}`, 'error');
+        } finally {
+            // Reset button state
+            registerButton.disabled = false;
+            registerButton.classList.remove('loading');
+            registerButton.textContent = 'Register';
         }
     });
 

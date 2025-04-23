@@ -360,7 +360,8 @@
     text-decoration: none;
 }
 
-.btn {
+.submit-btn, .btn {
+    position: relative;
     width: 100%;
     height: 48px;
     background: #7494ec;
@@ -372,10 +373,44 @@
     font-size: 16px;
     color: #fff;
     font-weight: 600;
+    transition: all 0.3s ease;
 }
 
-.btn:hover {
+.submit-btn:hover, .btn:hover {
     background: #8aa6f3;
+}
+
+.submit-btn:disabled, .btn:disabled {
+    background: #a5b7f0;
+    cursor: not-allowed;
+}
+
+.submit-btn.loading, .btn.loading {
+    color: transparent;
+    cursor: wait;
+}
+
+.submit-btn.loading::after, .btn.loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin: -10px 0 0 -10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
 }
 
 .login-btn {
