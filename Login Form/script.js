@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Toggle buttons (both desktop and mobile)
     const registerBtns = document.querySelectorAll('.register-btn');
-    const loginBtns = document.querySelectorAll('.login-btn');
+    const loginBtns = document.querySelectorAll('.toggle-login-btn');
     
     // Profile elements
     const userDisplayName = document.getElementById('user-display-name');

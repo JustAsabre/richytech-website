@@ -511,3 +511,21 @@
     color: #721c24;
     border: 1px solid #f5c6cb;
 }
+
+.submit-btn {
+    width: 100%;
+    height: 48px;
+    background: #7494ec;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.submit-btn:hover {
+    background: #8aa6f3;
+}
