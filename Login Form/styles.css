@@ -270,12 +270,84 @@
 }
 
 .container {
-    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+}
+
+.shop-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.item {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.item:hover {
+    transform: translateY(-10px);
+}
+
+.item img {
     width: 100%;
-    max-width: 850px;
-    height: 500px;
-    background-color: #fff;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.item h3 {
+    margin: 10px 0;
+    color: #333;
+}
+
+.item p {
+    color: #555;
+    font-size: 18px;
+}
+
+.item button {
+    background: #f4a261;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.item button:hover {
+    background: #e76f51;
+}
+
+/* New Login and Registration Styles */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
+}
+
+.container {
+    position: relative;
+    width: 850px;
+    height: 550px;
+    background: #fff;
+    margin: 20px;
+    border-radius: 30px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .2);
     overflow: hidden;
 }
 
@@ -294,6 +366,7 @@ form {
 }
 
 .form-box {
+    justify-content: center;
     position: absolute;
     right: 0;
     width: 50%;
@@ -483,81 +556,157 @@ form {
 }
 
 @media screen and (max-width: 768px) {
-    body {
+
+    /* --- Style the main content area to respect sidebar --- */
+    .home-section {
+        position: relative; /* Let it be relative to flow */
+        width: 100%;      /* Use full viewport width */
         min-height: 100vh;
-        display: flex;
-        align-items: center;
+        padding-left: 78px; /* <<< KEY FIX: Add space for the closed sidebar */
+        padding-top: 20px;    /* Add some top/bottom padding */
+        padding-bottom: 20px;
+        padding-right: 10px; /* Add a little right padding */
+        box-sizing: border-box; /* <<< KEY FIX: Include padding in width */
+        display: flex;          /* Use flex to center container */
         justify-content: center;
-        background-color: #f0f2f5;
-        padding: 20px;
+        align-items: center;
+        background: #e4e9f7; /* Ensure background is visible */
+        /* Remove transition properties inherited from desktop */
+        transition: none !important;
+        left: 0 !important; /* Ensure no 'left' offset is inherited */
     }
 
+    /* Handle open sidebar state if necessary (optional on mobile) */
+    /* If you want the content to shift when sidebar opens: */
+    /*
+    .sidebar.open ~ .home-section {
+        padding-left: 250px;
+    }
+    */
+    /* If you want sidebar to overlay content (simpler for mobile login): */
+    .sidebar.open ~ .home-section {
+        padding-left: 78px; /* Keep original padding */
+    }
+
+
+    /* --- Style the container --- */
     .container {
-        width: 95%;
-        height: auto;
-        min-height: 500px;
-        margin: 0 auto;
+        position: relative;
+        width: 100%; /* Fill the padded home-section */
+        max-width: 450px;
+        height: auto;     /* Auto height */
+        margin: 0; /* Remove margin, rely on home-section padding/flex */
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+        display: flex;
     }
 
+    /* --- Style Form Boxes --- */
     .form-box {
         width: 100%;
-        padding: 20px;
+        height: auto;
+        padding: 30px 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        order: 1; /* Forms first */
+        /* Remove properties related to absolute positioning/transitions */
+        position: static;
+        transform: none;
+        transition: none;
+        opacity: 1; /* Ensure visible */
+        visibility: visible; /* Ensure visible */
     }
 
-    .toggle-box::before {
-        width: 200%;
-        left: -150%;
+    /* Hide register form by default */
+    .form-box.register {
+        display: none;
     }
 
-    .container.active .toggle-box::before {
-        left: 50%;
-    }
-
+    /* --- Style Toggle Panels --- */
     .toggle-panel {
-        padding: 20px;
+        width: 100%;
+        height: auto;
+        padding: 20px 15px;
+        min-height: 150px;
+        color: #333;
+        background: #f0f4f8;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        order: 2; /* Toggles second */
+         /* Remove properties related to absolute positioning/transitions */
+         position: static;
+         transform: none;
+         transition: none;
+         opacity: 1; /* Ensure visible */
+         visibility: visible; /* Ensure visible */
+          border-radius: 0; /* Remove radius if simply stacked */
     }
 
     .toggle-panel .btn {
-        width: 130px;
-        height: 40px;
-        font-size: 14px;
+        background: #7494ec;
+        color: #fff;
+        border: none;
+        padding: 10px 25px;
+        margin-top: 10px;
     }
 
-    .input-box input {
-        padding: 10px 40px 10px 15px;
-        font-size: 14px;
+    /* Hide right toggle panel by default */
+    .toggle-panel.toggle-right {
+        display: none;
     }
-}
 
+
+    /* --- Active State (.container.active) - Toggles Display --- */
+
+    /* When Register is active -> Hide Login Form, Show Register Form */
+    .container.active .form-box.login { display: none; }
+    .container.active .form-box.register { display: flex; } /* Use flex from base style */
+
+    /* When Register is active -> Hide Left Toggle, Show Right Toggle */
+    .container.active .toggle-panel.toggle-left { display: none; }
+    .container.active .toggle-panel.toggle-right { display: flex; } /* Use flex from base style */
+
+    /* Hide desktop animation elements */
+    .toggle-box::before, .toggle-box {
+        display: none;
+    }
+
+} /* End of 768px media query */
+
+
+/* --- Adjustments for Very Small Screens --- */
 @media screen and (max-width: 400px) {
-    body {
-        padding: 10px;
+    .home-section {
+        padding-left: 78px; /* Maintain sidebar padding */
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-right: 5px; /* Less padding */
+        align-items: flex-start; /* Align top */
     }
-
+     /* Keep sidebar overlay behavior */
+      .sidebar.open ~ .home-section {
+        padding-left: 78px;
+    }
     .container {
         width: 100%;
+        max-width: none; /* Allow full width */
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        min-height: calc(100vh - 20px); /* Adjust based on padding */
     }
-
-    .form-box {
-        padding: 15px;
-    }
-
-    .container h1 {
-        font-size: 28px;
-    }
-
-    .container p {
-        font-size: 13px;
-    }
-
-    .social-icons a {
-        padding: 8px;
-        font-size: 20px;
-    }
+    /* Adjust padding/min-height if needed */
+    .form-box { padding: 25px 15px; }
+    .toggle-panel { padding: 15px; min-height: 130px; }
+    .form-box h1 { font-size: 24px; }
+    .toggle-panel h1 { font-size: 20px; }
+    .input-box { margin: 20px 0; }
 }
-
-/* Remove any display:none properties that might affect the layout */
-.container.active .form-box.login { opacity: 0; pointer-events: none; }
-.container.active .form-box.register { display: flex; opacity: 1; pointer-events: all; }
-.container.active .toggle-panel.toggle-left { transform: translateX(-100%); }
-.container.active .toggle-panel.toggle-right { transform: translateX(0); }
