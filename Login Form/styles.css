@@ -252,13 +252,17 @@
     min-height: 100vh;
     top: 0;
     left: 78px;
-    width: calc(100% -78px);
+    width: calc(100% - 78px);
     transition: all 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1024px;
 }
 
-.sidebar.open~.home-section {
+.sidebar.open ~ .home-section {
     left: 250px;
-    width: calc(100%-250px);
+    width: calc(100% - 250px);
 }
 
 .home-section .text {
@@ -269,77 +273,7 @@
     margin: 18px;
 }
 
-.container {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-    font-size: 24px;
-}
-
-.shop-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.item {
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    width: 200px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-}
-
-.item:hover {
-    transform: translateY(-10px);
-}
-
-.item img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.item h3 {
-    margin: 10px 0;
-    color: #333;
-}
-
-.item p {
-    color: #555;
-    font-size: 18px;
-}
-
-.item button {
-    background: #f4a261;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.item button:hover {
-    background: #e76f51;
-}
-
-/* New Login and Registration Styles */
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(90deg, #e2e2e2, #c9d6ff);
-}
-
+/* Login Form Styles */
 .container {
     position: relative;
     width: 850px;
@@ -361,12 +295,7 @@ body {
     margin: 15px 0;
 }
 
-form {
-    width: 100%;
-}
-
 .form-box {
-    justify-content: center;
     position: absolute;
     right: 0;
     width: 50%;
@@ -408,7 +337,6 @@ form {
     font-size: 16px;
     color: #333;
 }
-
 .input-box input::placeholder {
     color: #888;
     font-weight: 400;
@@ -429,6 +357,7 @@ form {
 .forgot-link a {
     font-size: 14.5px;
     color: #333;
+    text-decoration: none;
 }
 
 .btn {
@@ -438,15 +367,16 @@ form {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     border: none;
+    outline: none;
     cursor: pointer;
     font-size: 16px;
     color: #fff;
     font-weight: 600;
 }
+
 .btn:hover {
     background: #8aa6f3;
 }
-
 
 .login-btn {
     width: 100%;
@@ -455,24 +385,29 @@ form {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     border: none;
+    outline: none;
     cursor: pointer;
     font-size: 16px;
     color: #fff;
     font-weight: 600;
 }
+
 .login-btn:hover {
     background: #8aa6f3;
 }
 
-
-
 .social-icons {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .social-icons a {
     display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
     padding: 10px;
     border: 2px solid #ccc;
     border-radius: 8px;
@@ -480,6 +415,7 @@ form {
     color: #333;
     margin: 0 8px;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .social-icons a:hover {
@@ -555,158 +491,23 @@ form {
     box-shadow: none;
 }
 
-@media screen and (max-width: 768px) {
+.message-box {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
 
-    /* --- Style the main content area to respect sidebar --- */
-    .home-section {
-        position: relative; /* Let it be relative to flow */
-        width: 100%;      /* Use full viewport width */
-        min-height: 100vh;
-        padding-left: 78px; /* <<< KEY FIX: Add space for the closed sidebar */
-        padding-top: 20px;    /* Add some top/bottom padding */
-        padding-bottom: 20px;
-        padding-right: 10px; /* Add a little right padding */
-        box-sizing: border-box; /* <<< KEY FIX: Include padding in width */
-        display: flex;          /* Use flex to center container */
-        justify-content: center;
-        align-items: center;
-        background: #e4e9f7; /* Ensure background is visible */
-        /* Remove transition properties inherited from desktop */
-        transition: none !important;
-        left: 0 !important; /* Ensure no 'left' offset is inherited */
-    }
+.message-box.success {
+    display: block;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
 
-    /* Handle open sidebar state if necessary (optional on mobile) */
-    /* If you want the content to shift when sidebar opens: */
-    /*
-    .sidebar.open ~ .home-section {
-        padding-left: 250px;
-    }
-    */
-    /* If you want sidebar to overlay content (simpler for mobile login): */
-    .sidebar.open ~ .home-section {
-        padding-left: 78px; /* Keep original padding */
-    }
-
-
-    /* --- Style the container --- */
-    .container {
-        position: relative;
-        width: 100%; /* Fill the padded home-section */
-        max-width: 450px;
-        height: auto;     /* Auto height */
-        margin: 0; /* Remove margin, rely on home-section padding/flex */
-        background: #fff;
-        border-radius: 15px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        overflow: hidden;
-        display: flex;
-    }
-
-    /* --- Style Form Boxes --- */
-    .form-box {
-        width: 100%;
-        height: auto;
-        padding: 30px 25px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        order: 1; /* Forms first */
-        /* Remove properties related to absolute positioning/transitions */
-        position: static;
-        transform: none;
-        transition: none;
-        opacity: 1; /* Ensure visible */
-        visibility: visible; /* Ensure visible */
-    }
-
-    /* Hide register form by default */
-    .form-box.register {
-        display: none;
-    }
-
-    /* --- Style Toggle Panels --- */
-    .toggle-panel {
-        width: 100%;
-        height: auto;
-        padding: 20px 15px;
-        min-height: 150px;
-        color: #333;
-        background: #f0f4f8;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        order: 2; /* Toggles second */
-         /* Remove properties related to absolute positioning/transitions */
-         position: static;
-         transform: none;
-         transition: none;
-         opacity: 1; /* Ensure visible */
-         visibility: visible; /* Ensure visible */
-          border-radius: 0; /* Remove radius if simply stacked */
-    }
-
-    .toggle-panel .btn {
-        background: #7494ec;
-        color: #fff;
-        border: none;
-        padding: 10px 25px;
-        margin-top: 10px;
-    }
-
-    /* Hide right toggle panel by default */
-    .toggle-panel.toggle-right {
-        display: none;
-    }
-
-
-    /* --- Active State (.container.active) - Toggles Display --- */
-
-    /* When Register is active -> Hide Login Form, Show Register Form */
-    .container.active .form-box.login { display: none; }
-    .container.active .form-box.register { display: flex; } /* Use flex from base style */
-
-    /* When Register is active -> Hide Left Toggle, Show Right Toggle */
-    .container.active .toggle-panel.toggle-left { display: none; }
-    .container.active .toggle-panel.toggle-right { display: flex; } /* Use flex from base style */
-
-    /* Hide desktop animation elements */
-    .toggle-box::before, .toggle-box {
-        display: none;
-    }
-
-} /* End of 768px media query */
-
-
-/* --- Adjustments for Very Small Screens --- */
-@media screen and (max-width: 400px) {
-    .home-section {
-        padding-left: 78px; /* Maintain sidebar padding */
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-right: 5px; /* Less padding */
-        align-items: flex-start; /* Align top */
-    }
-     /* Keep sidebar overlay behavior */
-      .sidebar.open ~ .home-section {
-        padding-left: 78px;
-    }
-    .container {
-        width: 100%;
-        max-width: none; /* Allow full width */
-        margin: 0;
-        border-radius: 0;
-        box-shadow: none;
-        min-height: calc(100vh - 20px); /* Adjust based on padding */
-    }
-    /* Adjust padding/min-height if needed */
-    .form-box { padding: 25px 15px; }
-    .toggle-panel { padding: 15px; min-height: 130px; }
-    .form-box h1 { font-size: 24px; }
-    .toggle-panel h1 { font-size: 20px; }
-    .input-box { margin: 20px 0; }
+.message-box.error {
+    display: block;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }

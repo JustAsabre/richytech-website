@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const loginMessage = document.getElementById('loginMessage');
     const registerMessage = document.getElementById('registerMessage');
     
-    // Toggle buttons
-    const registerBtn = document.querySelector('.register-btn');
-    const loginBtn = document.querySelector('.toggle-panel .login-btn');
+    // Toggle buttons (both desktop and mobile)
+    const registerBtns = document.querySelectorAll('.register-btn');
+    const loginBtns = document.querySelectorAll('.login-btn');
     
     // Profile elements
     const userDisplayName = document.getElementById('user-display-name');
@@ -187,18 +187,23 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Form toggle functionality
-    if (container && registerBtn && loginBtn) {
-        registerBtn.addEventListener('click', () => {
+    // Add click handlers for all register buttons
+    registerBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             container.classList.add('active');
             clearMessages();
         });
+    });
 
-        loginBtn.addEventListener('click', () => {
+    // Add click handlers for all login buttons
+    loginBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             container.classList.remove('active');
             clearMessages();
         });
-    }
+    });
 
     // Utility functions
     function showMessage(element, message, type) {
